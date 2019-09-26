@@ -230,3 +230,19 @@ gradle.taskGraph.whenReady {taskGraph ->
 }
 ```
 
+### Java构建入门
+
+#### 采用 Java 插件
+
+```groovy
+apply plugin: 'java'
+// 默认目录结构
+project  
+    +build  
+    +src/main/java  
+    +src/main/resources  
+    +src/test/java  
+    +src/test/resources  
+```
+
+​	

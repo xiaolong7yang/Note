@@ -203,7 +203,7 @@ for(variable in range) {
 
 下图显示了此循环的图解说明。
 
-![For In Loop](F:\Note\Groovy\Groovy基础.assets\201612291413343358.jpg)
+![201612291413343358](Groovy基础.assets/201612291413343358.jpg)
 
 以下是for-in语句的示例 -
 

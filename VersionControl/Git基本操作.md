@@ -85,6 +85,8 @@ tips:1094a为commit id(版本号）
 	ssh-keygen -t rsa -C "youremail@example.com"
 ### (2)关联远程仓库 ###
 	git remote add origin git@github.com:xiaolong7yang/learngit.git
+	第一次拉取强制合并
+	git pull origin master --allow-unrelated-histories
 ### (3)将本地内容推送到远程仓库 ###
 	git push -u origin master
 ### (4)从远程仓库克隆 ###

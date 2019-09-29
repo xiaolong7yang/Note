@@ -1145,3 +1145,106 @@ The list will only display those numbers which are divisible by 2.
 | 2    | [findAll（）](https://www.w3cschool.cn/groovy/groovy_findall.html)它找到接收对象中与闭合条件匹配的所有值。 |
 | 3    | [any() & every()](https://www.w3cschool.cn/groovy/groovy_any_every.html)方法any迭代集合的每个元素，检查布尔谓词是否对至少一个元素有效。 |
 | 4    | [collect()](https://www.w3cschool.cn/groovy/groovy_collect.html)该方法通过集合收集迭代，使用闭包作为变换器将每个元素转换为新值。 |
+
+## 注释
+
+### 字符串类型
+
+下面给出了字符串注释的一个例子 -
+
+```
+@interface Simple { 
+   String str1() default "HelloWorld"; 
+}
+```
+
+### 枚举类型
+
+```
+enum DayOfWeek { mon, tue, wed, thu, fri, sat, sun } 
+@interface Scheduled {
+   DayOfWeek dayOfWeek() 
+} 
+```
+
+### 类类型
+
+```
+@interface Simple {} 
+@Simple 
+class User {
+   String username
+   int age
+}
+ 
+def user = new User(username: "Joe",age:1); 
+println(user.age); 
+println(user.username);
+```
+
+### 注释成员值
+
+使用注释时，需要至少设置所有没有默认值的成员。下面给出一个例子。当定义后使用注释示例时，需要为其分配一个值。
+
+```
+@interface Example {
+   int status() 
+}
+
+@Example(status = 1)
+```
+
+### 关闭注释参数
+
+Groovy中注释的一个很好的特性是，你也可以使用闭包作为注释值。因此，注释可以与各种各样的表达式一起使用。
+
+下面给出一个例子。注释Onlyif是基于类值创建的。然后注释应用于两个方法，它们基于数字变量的值向结果变量发布不同的消息。
+
+```
+@interface OnlyIf {
+   Class value() 
+}  
+
+@OnlyIf({ number<=6 }) 
+void Version6() {
+   result << 'Number greater than 6' 
+} 
+
+@OnlyIf({ number>=6 }) 
+void Version7() {
+   result << 'Number greater than 6' 
+}
+```
+
+### 元注释
+
+这是groovy中注释的一个非常有用的功能。有时可能有一个方法的多个注释，如下所示。有时这可能变得麻烦有多个注释。
+
+```
+@Procedure 
+@Master class 
+MyMasterProcedure {} 
+```
+
+在这种情况下，您可以定义一个元注释，它将多个注释集中在一起，并将元注释应用于该方法。所以对于上面的例子，你可以使用AnnotationCollector来定义注释的集合。
+
+```
+import groovy.transform.AnnotationCollector
+  
+@Procedure 
+@Master 
+@AnnotationCollector
+```
+
+一旦完成，您可以应用以下元注释器到该方法 -
+
+```
+import groovy.transform.AnnotationCollector
+  
+@Procedure 
+@Master 
+@AnnotationCollector
+  
+@MasterProcedure 
+class MyMasterProcedure {}
+```

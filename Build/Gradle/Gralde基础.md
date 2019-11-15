@@ -18,6 +18,8 @@
 
 ### 安装
 
+待补充
+
 [https://discuss.gradle.org](https://discuss.gradle.org/)
 
 下载下来解压即可

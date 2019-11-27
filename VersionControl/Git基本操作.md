@@ -4,7 +4,7 @@
 
 ```bash
 首先配置全局信息
-git config --global user.name "xiaolong7yang"
+git config --global user.name "xiaolongyang"
 git config --global user.email "807369223@qq.com"
 # windows下中文不显示问题
 git config --global core.quotepath false

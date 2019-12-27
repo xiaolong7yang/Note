@@ -40,4 +40,3 @@ Editor > General >Code Completion  设置为All letters
 ## 显示行号
 
 ![image-20191224111648008](IDEA常用配置.assets/image-20191224111648008.png)
-

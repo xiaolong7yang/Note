@@ -1,9 +1,0 @@
-task printProps{
-    doLast{
-        println commandLineProjectProp
-        println gradlePropertiesProp
-        println systemProjectProp
-        println System.properties['system']
-        println '所用命令行 gradle -q -PcommandLineProjectProp=commandLineProjectPropValue -Dorg.gradle.project.systemProjectProp=systemPropertyValue printProps'
-    }
-}

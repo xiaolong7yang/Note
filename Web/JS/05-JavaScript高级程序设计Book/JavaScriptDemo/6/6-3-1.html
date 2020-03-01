@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>原型链的继承</title>
+	</head>
+	<body>
+		<script>
+			function SuperType(){
+				this.property  = true;
+			}
+			
+			SuperType.prototype.getSuperValue = function(){
+				return this.property;
+			}
+			
+			function SubType(){
+				this.subPropery=false;
+			}
+			
+			SubType.prototype = new SuperType();
+			
+			SubType.prototype.getSubValue = function(){
+				return this.subPropery;
+			}
+			
+			var instance = new SubType();
+			alert(instance.property);
+		</script>
+	</body>
+</html>

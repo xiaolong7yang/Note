@@ -1,0 +1,39 @@
+plugins {
+    id 'war'
+    id "org.gretty" version "3.0.1"
+}
+
+sourceCompatibility = 1.8
+
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+}
+
+gretty{
+    httpPort = 8080
+    integrationTestTask = 'test'
+    // 'jetty7', 'jetty8', 'jetty9', 'jetty93', 'jetty94', 'tomcat7', 'tomcat8'
+    servletContainer = 'tomcat9'
+    //contextPath = '/'
+    serverConfigFile ="../config/server.xml"
+    debugPort = 5005
+    debugSuspend = true
+    // 快速重载WebApp文件下的内容
+    fastReload = true
+}
+
+dependencies {
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile('org.mockito:mockito-core:2.7.19')
+    testCompile 'io.github.bonigarcia:webdrivermanager:1.6.1'
+    testCompile 'org.seleniumhq.selenium:selenium-java:3.3.1'
+}
+
+
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'

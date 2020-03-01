@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>窗口位置</title>
+	</head>
+	<body>
+		<script>
+			var leftPos = window.screenLeft;
+			var topPos = window.screenTop;
+			window.moveTo(0,0);
+			window.moveBy(100,100);
+			//alert("左："+leftPos+"上："+topPos);
+			window.resizeTo(100,100);
+			window.open("https://www.baidu.com","","",true);
+		</script>
+	</body>
+</html>

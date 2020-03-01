@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/functionA.js" defer="defer"></script>
+		<script src="http://localhost:8080/BasicWebDemo/ss/functionC.js" async="async"></script>
+		<script src="http://localhost:8080/BasicWebDemo/ss/functionD.js" async="async"></script>
+	</head>
+	<body>
+		<h2>观察执行顺序</h2>
+		<p>浏览器是在解析到body以后才开始显示内容的~</p>
+		<p>待补充验证方法</p>
+		<script src="http://localhost:8080/BasicWebDemo/ss/functionB.js"></script>
+	</body>
+</html>

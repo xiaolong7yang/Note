@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function MyObject(){
+				var privateVariable = 10;
+				
+				function privateFunction(){
+					return false;
+				}
+				// 特权方法
+				this.publicMethod = function(){
+					privateVariable++;
+					return privateFunction();
+				}
+				
+			}
+			/* 静态私有变量 */
+			
+			(function(){
+				var name = "";
+				// 这里没加var就可以在全局访问，同时又是闭包
+				Person = function(value){
+					name = value;
+				};
+				
+				Person.prototype.getName = function(){
+					return name;
+				};
+				
+				Person.prototype.setName = function(value){
+					name = value;
+				};
+			})();
+			
+			// 单例管理应用程序级信息
+			var application = function(){
+				// 私有变量和函数
+				var components = new Array();
+				// 初始化
+				components.push(new BaseComponent());
+				// 公共
+				return {
+					getComponentCount:function(){
+						return components.length;
+					},
+					
+					registerComponent:function(component){
+						if(typeof component == "object"){
+							component.push(component);
+						}
+					}
+				};
+				
+			}();
+			
+			// 增强的模块
+			var application_info = function(){
+				// 私有变量和函数
+				var components = new Array();
+				// 初始化
+				components.push(new BaseComponent());
+				// 创建Application的局部副本
+				var app= new BaseComponent();
+				
+				// 公共接口
+				app.getComponentCount = function(){
+					return components.length
+				};
+				app.registerComponent = function (component){
+					if(typeof component == "object"){
+						component.push(component);
+					}
+				}
+				// 返回这个副本
+				return app;
+			}
+		</script>
+	</body>
+</html>

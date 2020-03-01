@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function factorial(num) {
+				if (num <= 1) {
+					return 1;
+				} else {
+					return num * arguments.callee(num - 1);
+				}
+			}
+
+			var anotherFactorial = factorial;
+			// 这里清空为null的时候，函数体内的方法名调用就无效了
+			factorial = null;
+			alert(anotherFactorial(5));
+			// 命名函数表达式
+			var factorial_1 = (function function_name(num) {
+				if (num <= 1) {
+					return 1;
+				} else {
+					return num * f(num - 1)
+				}
+			});
+		</script>
+	</body>
+</html>

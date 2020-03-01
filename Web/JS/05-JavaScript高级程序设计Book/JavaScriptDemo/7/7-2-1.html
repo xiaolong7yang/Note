@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>闭包与变量</title>
+		<script src="../ComprehensiveCases/js/my.js"></script>
+	</head>
+	<body>
+		<script>
+			addOnLoadEvent(crateFuntions);
+			addOnLoadEvent(printInfo);
+			// 这种行为不符合预期
+			function crateFuntions() {
+				var result = new Array()
+				for (var i = 0; i < 5; i++) {
+					result[i] = function() {
+						return i;
+					}
+				}
+				return result;
+			}
+			// 闭包
+			function crateFuntionsForce() {
+				var result = new Array()
+				for (var i = 0; i < 5; i++) {
+					result[i] = function(num) {
+						return function(){
+							return num;
+						};
+					}(i);
+				}
+				return result;
+			}
+			
+			// 这里输出的是5个5
+			function printInfo(){
+				var arr = crateFuntionsForce();
+				for(var i = 0;i<arr.length;i++){
+					console.log(arr[i]());
+				}
+				
+			}
+		</script>
+	</body>
+</html>

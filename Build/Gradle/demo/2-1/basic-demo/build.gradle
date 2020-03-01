@@ -1,0 +1,194 @@
+import org.apache.commons.codec.binary.Base64
+
+
+// 构建脚本的外部依赖关系
+// 生命构建脚本的外部依赖
+buildscript{
+    repositories{
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+    }
+
+    dependencies {
+        classpath group: 'commons-codec', name: 'commons-codec', version: '1.2'
+    }
+}
+
+
+plugins{
+  id "base"
+}
+
+task encode{
+    doLast{
+        def byte[] encodedString = new Base64().encode('hello world\n'.getBytes())
+        println new String(encodedString)
+    }
+}
+
+// 复制任务
+task copy(type: Copy, group:"Customer",description:"Copies sources to the dest directory"){
+ from "src"
+ into "dest"
+}
+// 压缩任务
+task zip(type:Zip, group: "Archive", description: "Archives sources in a zip file"){
+ from "src"
+ setArchiveName "basic-demo-1.0.zip"
+}
+/*
+ * 以下例子添加 -q 不打印日志
+ */
+// Example1
+task hello{
+    doLast{
+        println 'Hello World!'
+    }
+}
+
+// Example2
+task upper{
+    doLast{
+        String someString =  'My_nAmE'
+        println "Original:$someString"
+        println "Upper case: ${someString.toUpperCase()}"
+    }
+}
+
+//Example3
+task count{
+    doLast{
+        4.times{print "$it"}
+    }
+}
+/**
+ * Task dependencies
+ */
+//Example4
+task intro{
+    dependsOn hello
+    doLast{
+        println'我是格鲁特'
+    }
+}
+
+/*
+    Lazy depndsOn 当其他任务还不存在时
+*/
+// E5
+task taskX{
+    dependsOn 'taskY'
+    doLast{
+        println 'taskX'
+    }
+}
+
+task taskY{
+    doLast{
+        println 'taskY'
+    }
+}
+/*  处理现有任务
+    Dynamic tasks
+ */
+
+// E6
+
+4.times{ counter->
+    task "task$counter"{
+        doLast{
+            println "I'm task number $counter"
+        }
+    }
+}
+
+task0.dependsOn task2,task3
+
+task AccessApiVia{
+    doLast{
+        println 'Hello Earth'
+    }
+}
+
+AccessApiVia.doFirst{
+    println 'Do First'
+}
+
+AccessApiVia.configure{
+    doLast{
+       println "Do Configure1"
+    }
+}
+
+AccessApiVia.configure{
+    doLast{
+        println "Do Configure2"
+    }
+}
+
+
+/*
+Groovy DSL快捷方式符号
+ */
+
+hello.doLast{
+    println "Greetings from the $hello.name task"
+}
+
+/*
+ 扩展的任务属性
+ */
+task myTask{
+    ext.myProperty = "myValue"
+}
+
+task printTaskProperties{
+    doLast{
+        println myTask.myProperty
+    }
+}
+
+// 默认任务
+defaultTasks 'myClean', 'run'
+
+task myClean{
+    doLast{
+        println 'Default cleaning!'
+    }
+}
+
+task run{
+    doLast{
+        println 'Default Running'
+    }
+}
+
+task other{
+    doLast{
+        println "I'm not a default task"
+    }
+}
+
+// DAG
+
+task distribution{
+    doLast{
+        println "We build the zip with version=$version"
+    }
+}
+
+task release{
+    dependsOn 'distribution'
+    doLast{
+        println 'We release now'
+    }
+}
+
+gradle.taskGraph.whenReady{taskGraph->
+    if(taskGraph.hasTask(":release")){
+        version = '1.0'
+    }else{
+        version = '1.0-SNAPSHOT'
+    }
+}
+

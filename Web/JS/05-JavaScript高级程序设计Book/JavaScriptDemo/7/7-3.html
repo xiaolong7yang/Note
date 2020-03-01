@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function outputNumbers(count){
+				(function(){
+						// 这里是块级作用域
+						for(var i = 0;i<count;i++){
+							console.log(i);
+						}
+					})(); 
+					// 下面访问不到i了
+				console.log("执行完循环");
+			}
+			
+		
+			outputNumbers(5);
+ 			(function(){
+					// 这里是块级作用域
+				})(); 
+		</script>
+	</body>
+</html>
